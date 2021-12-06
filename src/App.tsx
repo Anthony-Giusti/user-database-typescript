@@ -29,11 +29,7 @@ const App: React.FC = () => {
 
   const fetchUserData = async () => {
     await api
-      .get<IUser[]>('/getUserData', {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-      })
+      .get<IUser[]>('/getUserData',)
       .then((response) => {
         const data = Object.values(response.data);
         setUserData(data);
