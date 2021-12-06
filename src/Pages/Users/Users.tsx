@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SuccessSnackBar from '../../components/SuccessSnackBar/SuccessSnackBar';
 
 import 'date-fns';
 
@@ -218,6 +219,8 @@ const Users: React.FC<IProps> = ({
           </DialogActions>
         </Dialog>
       )}
+
+      <SuccessSnackBar></SuccessSnackBar>
     </div>
   );
 };
