@@ -23,16 +23,19 @@ const api = axios.create({
 
 const App: React.FC = () => {
   const [userData, setUserData] = useState<IUser[]>([]);
+  const [isFetchingUserData, setIsFetchingUserData] = useState(false);
 
   const classes = useStyles();
   const history = useHistory();
 
   const fetchUserData = async () => {
+    setIsFetchingUserData(true);
     await api
       .get<IUser[]>('/getUserData',)
       .then((response) => {
         const data = Object.values(response.data);
         setUserData(data);
+        setIsFetchingUserData(false);
       });
   };
 
@@ -73,6 +76,7 @@ const App: React.FC = () => {
                 removeUser={removeUser}
                 submitEditedUser={editUser}
                 fetchUserData={fetchUserData}
+                isFetchingUserData={isFetchingUserData}
               />
             </Route>
             <Route path="/create-user">

@@ -5,6 +5,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Box from '@material-ui/core/Box';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import 'date-fns';
 
@@ -26,6 +28,7 @@ interface IProps {
   removeUser: (userId: string) => void;
   submitEditedUser: (editedUser: IUser) => void;
   fetchUserData: () => void;
+  isFetchingUserData: boolean;
 }
 
 const Users: React.FC<IProps> = ({
@@ -33,6 +36,7 @@ const Users: React.FC<IProps> = ({
   removeUser,
   submitEditedUser,
   fetchUserData,
+  isFetchingUserData
 }) => {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [editModalOpen, setEditModalOpen] = useState(false);
@@ -84,6 +88,8 @@ const Users: React.FC<IProps> = ({
 
     return filteredUsers;
   };
+
+
 
   const sortByBirthday = (users: IUser[], order: string) => {
     const filteredUsers = [...userData];
@@ -174,12 +180,19 @@ const Users: React.FC<IProps> = ({
 
   return (
     <div className={classes.usersMain}>
+    {isFetchingUserData ?  
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+      :
+      <>
       <UsersHeader
         handleSexFilter={handleSexFilter}
         sortUsers={handleSortUsers}
         userData={visibleUserData}
         sexFilter={sexFilter}
       />
+      
       {visibleUserData.map((user) => (
         <User
           key={user._id}
@@ -188,6 +201,8 @@ const Users: React.FC<IProps> = ({
           openEditModal={openEditModal}
         />
       ))}
+      </>
+}
       {selectedUser && editModalOpen && (
         <EditModal
           editModalOpen={editModalOpen}
