@@ -14,6 +14,6 @@ I worked on this primarily to get experience using Typescript on a real project.
 ## Libraries Used
 
 [Material UI](https://material-ui.com/)  
-[Axios](https://www.npmjs.com/package/axios)
-[Validator.js](https://www.npmjs.com/package/validator)
+[Axios](https://www.npmjs.com/package/axios)  
+[Validator.js](https://www.npmjs.com/package/validator)  
 [Date and Time](https://www.npmjs.com/package/date-and-time)
