@@ -2,7 +2,7 @@ export interface IUser {
   _id: string;
   firstName: string;
   lastName: string;
-  sex: string;
+  sex: 'M' | 'F' | 'NB';
   birthday: string;
   created: string;
   lastEdit: string;
