@@ -1,4 +1,4 @@
-const sexStringToInt = (sex: string): number => {
+const sexStringToInt = (sex: 'M' | 'F' | 'NB'): 1 | 2 | 3 => {
   switch (sex) {
     case 'M':
       return 1;
