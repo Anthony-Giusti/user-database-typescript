@@ -32,21 +32,21 @@ const UsersHeader: React.FC<IProps> = ({
   userData,
   sexFilter,
 }) => {
-  const [expandedHeader, setExpandedHeader] = useState(false);
-  const [selectedSortBtn, setSelectedSortBtn] = useState('_id');
+  const [expandedHeader, setExpandedHeader] = useState<boolean>(false);
+  const [selectedSortBtn, setSelectedSortBtn] = useState<userProperty>('_id');
 
   const classes = useStyles();
   const theme = useTheme();
 
   const smDevice = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleSort = (order: listOrder, list: userProperty) => {
+  const handleSort = (order: listOrder, list: userProperty): void => {
     sortUsers(order, list);
 
     setSelectedSortBtn(list);
   };
 
-  const handleExpandHeader = () => {
+  const handleExpandHeader = (): void => {
     setExpandedHeader((prev) => !prev);
   };
 

@@ -39,8 +39,8 @@ const Users: React.FC<IProps> = ({
   isFetchingUserData
 }) => {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
-  const [editModalOpen, setEditModalOpen] = useState(false);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false);
   const [sexFilter, setSexFilter] = useState<string[]>([]);
   const [visibleUserData, setVisibleUserData] = useState<IUser[]>([]);
   const [currentSort, setCurrentSort] = useState<{
@@ -53,12 +53,12 @@ const Users: React.FC<IProps> = ({
 
   const classes = useStyles();
 
-  const openEditModal = (user: IUser) => {
+  const openEditModal = (user: IUser): void => {
     setSelectedUser(user);
     setEditModalOpen(true);
   };
 
-  const closeEditModal: closeEditModal = (action, editedUser) => {
+  const closeEditModal: closeEditModal = (action, editedUser): void => {
     if (action === 'submit' && editedUser) {
       submitEditedUser(editedUser);
     }
@@ -66,7 +66,7 @@ const Users: React.FC<IProps> = ({
     setSelectedUser(null);
   };
 
-  const handleSexFilter = (newSex: string) => {
+  const handleSexFilter = (newSex: string): void => {
     if (sexFilter.includes(newSex)) {
       setSexFilter((prev) => prev.filter((sex) => sex !== newSex));
     } else {
@@ -74,7 +74,7 @@ const Users: React.FC<IProps> = ({
     }
   };
 
-  const filterUsers = (users: IUser[]) => {
+  const filterUsers = (users: IUser[]): IUser[] => {
     const filteredUsers: IUser[] = [];
 
     users.forEach((user) => {
@@ -91,7 +91,7 @@ const Users: React.FC<IProps> = ({
 
 
 
-  const sortByBirthday = (users: IUser[], order: string) => {
+  const sortByBirthday = (order: listOrder): IUser[] => {
     const filteredUsers = [...userData];
 
     if (order === 'descending') {
@@ -115,7 +115,7 @@ const Users: React.FC<IProps> = ({
     users: IUser[],
     order: listOrder,
     listItem: userProperty
-  ) => {
+  ): IUser[] => {
     const filteredUsers = users;
 
     if (order === 'descending') {
@@ -139,11 +139,11 @@ const Users: React.FC<IProps> = ({
     return filteredUsers;
   };
 
-  const handleSortUsers = (order: listOrder, list: userProperty) => {
+  const handleSortUsers = (order: listOrder, list: userProperty): void => {
     let sortedUsers = [...userData];
 
     if (list === 'birthday') {
-      sortedUsers = sortByBirthday(sortedUsers, order);
+      sortedUsers = sortByBirthday(order);
     } else {
       sortedUsers = sortUsers(sortedUsers, order, list);
     }
@@ -157,12 +157,12 @@ const Users: React.FC<IProps> = ({
     }
   };
 
-  const confirmRemoveUser = (user: IUser) => {
+  const confirmRemoveUser = (user: IUser): void => {
     setSelectedUser(user);
     setDeleteDialogOpen(true);
   };
 
-  const handleRemoveUser = () => {
+  const handleRemoveUser = (): void => {
     if (selectedUser && selectedUser._id) {
       removeUser(selectedUser._id);
       setSelectedUser(null);

@@ -1,7 +1,5 @@
-
-// @ts-nocheck
+//@ts-nocheck
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
@@ -13,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './Styles';
 import brithdayStringToDate from '../../../../components/util/functions/birthdayStringToDate';
 
-import IUser from '../../../../shared/interfaces/User.interface';
+import { IUser } from '../../../../shared/interfaces/User.interface';
 
 interface IProps {
   handleSexFilter: (newSex: string) => void;
@@ -79,11 +77,5 @@ const UsersHeaderTools: React.FC<IProps> = ({ handleSexFilter, sexFilter, userDa
     </div>
   );
 };
-
-// UsersHeaderTools.propTypes = {
-//   handleSexFilter: PropTypes.func,
-//   sexFilter: PropTypes.array,
-//   userData: PropTypes.array,
-// };
 
 export default UsersHeaderTools;

@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   const theme = useTheme();
   const mdDevice = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const handlePageChange = (route: string) => {
+  const handlePageChange = (route: string): void => {
     history.push(route);
   };
 

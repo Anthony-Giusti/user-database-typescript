@@ -15,20 +15,18 @@ import useStyles from './Styles';
 
 import { IUser } from './shared/interfaces/User.interface';
 
-console.log(process.env.REACT_APP_BASE_URL);
-
 const api = axios.create({
   baseURL: process.env.REACT_APP_BASE_URL || 'http://localhost:5000/',
 });
 
 const App: React.FC = () => {
   const [userData, setUserData] = useState<IUser[]>([]);
-  const [isFetchingUserData, setIsFetchingUserData] = useState(false);
+  const [isFetchingUserData, setIsFetchingUserData] = useState<boolean>(false);
 
   const classes = useStyles();
   const history = useHistory();
 
-  const fetchUserData = async () => {
+  const fetchUserData = async (): Promise<void> => {
     setIsFetchingUserData(true);
     await api
       .get<IUser[]>('/getUserData',)
@@ -39,7 +37,7 @@ const App: React.FC = () => {
       });
   };
 
-  const createUser = async (newUser: IUser) => {
+  const createUser = async (newUser: IUser): Promise<void> => {
     await api.post('/createNewUser', { newUser }).then((response) => {
       console.log(response);
     });
@@ -47,14 +45,14 @@ const App: React.FC = () => {
     history.push('/');
   };
 
-  const removeUser = (userId: string) => {
+  const removeUser = (userId: string): void => {
     const newUsers = userData.filter((user) => user._id !== userId);
     setUserData(newUsers);
 
     api.get(`/deleteUser?userId=${userId}`);
   };
 
-  const editUser = (editedUser: IUser) => {
+  const editUser = (editedUser: IUser): void => {
     editedUser.lastEdit = createDateAndTimeString();
     const newUsers = [...userData];
     const userIndex = userData.findIndex((user) => user._id === editedUser._id);

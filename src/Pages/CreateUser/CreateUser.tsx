@@ -13,10 +13,9 @@ interface IProps {
 
 const CreateUser: React.FC<IProps> = ({ submitUser }) => {
   const classes = useStyles();
-  // const ref = useRef(null);
   const ref = useRef(document.createElement('form'));
 
-  const handleSubmit = (newUser: IUser) => {
+  const handleSubmit = (newUser: IUser):void => {
     submitUser(newUser);
   };
 

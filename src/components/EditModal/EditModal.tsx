@@ -29,8 +29,8 @@ const EditModal: React.FC<IProps> = ({
   closeEditModal,
   selectedUser,
 }) => {
-  const [isEdited, setIsEdited] = useState(false);
-  const [editModalConfirmOpen, setEditModalConfirmOpen] = useState(false);
+  const [isEdited, setIsEdited] = useState<boolean>(false);
+  const [editModalConfirmOpen, setEditModalConfirmOpen] = useState<boolean>(false);
 
   const ref = useRef(document.createElement('form'));
 
@@ -39,17 +39,17 @@ const EditModal: React.FC<IProps> = ({
 
   const mdDevice = useMediaQuery(theme.breakpoints.up('md'));
 
-  const discardEdits = () => {
+  const discardEdits = (): void => {
     setEditModalConfirmOpen(false);
     setIsEdited(false);
     closeEditModal('discard', null);
   };
 
-  const cancelEdits = () => {
+  const cancelEdits = (): void => {
     setEditModalConfirmOpen(false);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     if (isEdited) {
       setEditModalConfirmOpen(true);
     } else {
@@ -57,19 +57,19 @@ const EditModal: React.FC<IProps> = ({
     }
   };
 
-  const editMade = () => {
+  const editMade = (): void => {
     if (!isEdited) {
       setIsEdited(true);
     }
   };
 
-  const handleSubmit = (editedUser: IUser) => {
+  const handleSubmit = (editedUser: IUser): void => {
     setEditModalConfirmOpen(false);
     setIsEdited(false);
     closeEditModal('submit', editedUser);
   };
 
-  const confirmEdits = () => {
+  const confirmEdits = (): void => {
     if (ref.current) {
       ref.current.sendForm();
     }

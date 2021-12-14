@@ -23,7 +23,7 @@ interface IProps {
 }
 
 const UserForm = forwardRef((props: IProps, ref) => {
-  const [userSex, setUserSex] = useState(
+  const [userSex, setUserSex] = useState<1 | 2 | 3>(
     props.user ? sexStringToInt(props.user.sex) : 3
   );
   const [userBirthday, setUserBirthday] = useState(
@@ -38,19 +38,22 @@ const UserForm = forwardRef((props: IProps, ref) => {
   let lastNameField: HTMLTextAreaElement;
 
   const userSexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserSex(sexStringToInt(e.target.value));
+    if (e.target.value === 'M' | 'F' | 'NB'){
+      setUserSex(sexStringToInt(e.target.value));
 
-    if (props.editMade) {
-      props.editMade();
+      if (props.editMade) {
+        props.editMade();
+      }
+    };
+  
+    const userBirthdayChange = (newBirthday: Date) => {
+      setUserBirthday(newBirthday);
+  
+      if (props.editMade) {
+        props.editMade();
+      }
     }
-  };
 
-  const userBirthdayChange = (newBirthday: Date) => {
-    setUserBirthday(newBirthday);
-
-    if (props.editMade) {
-      props.editMade();
-    }
   };
 
   const validateForm = () => {

@@ -11,7 +11,7 @@ const BirthdayPicker: React.FC<IProps> = ({
   userBirthday,
   userBirthdayChange,
 }) => {
-  const handleDateChange = (newBirthday: Date) => {
+  const handleDateChange = (newBirthday: Date): void => {
     userBirthdayChange(newBirthday);
   };
 

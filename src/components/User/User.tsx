@@ -35,11 +35,11 @@ const User: React.FC<IProps> = ({ user, openEditModal, handleRemoveUser }) => {
   const mdDevice = useMediaQuery(theme.breakpoints.up('md'));
   const smDevice = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleExpandedMenuOpen = (event: React.MouseEvent) => {
+  const handleExpandedMenuOpen = (event: React.MouseEvent): void => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleExpandedMenuClose = () => {
+  const handleExpandedMenuClose = (): void => {
     setAnchorEl(null);
   };
 
