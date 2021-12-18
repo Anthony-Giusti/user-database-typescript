@@ -46,16 +46,15 @@ const UserForm = forwardRef((props: IProps, ref) => {
         props.editMade();
       }
     };
-  
-    const userBirthdayChange = (newBirthday: Date) => {
-      setUserBirthday(newBirthday);
-  
-      if (props.editMade) {
-        props.editMade();
-      }
-    }
-
   };
+
+  const userBirthdayChange = (newBirthday: Date) => {
+    setUserBirthday(newBirthday);
+
+    if (props.editMade) {
+      props.editMade();
+    }
+  }
 
   const validateForm = () => {
     let errorsFound = false;
