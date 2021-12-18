@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
 
 import { FormControl, MenuItem, TextField } from '@material-ui/core';
@@ -23,8 +22,12 @@ interface IProps {
   submit: (user: IUser) => void;
 }
 
+const sexInt = [1, 2, 3] as const;
+type sexInt = (typeof sexInt)[number];
+const isSexInt = (x: any): x is sexInt => sexInt.includes(x);
+
 const UserForm = forwardRef((props: IProps, ref) => {
-  const [userSex, setUserSex] = useState<1 | 2 | 3>(
+  const [userSex, setUserSex] = useState<sexInt>(
     props.user ? sexStringToInt(props.user.sex) : 3
   );
   const [userBirthday, setUserBirthday] = useState(
@@ -38,23 +41,23 @@ const UserForm = forwardRef((props: IProps, ref) => {
   let firstNameField: HTMLTextAreaElement;
   let lastNameField: HTMLTextAreaElement;
 
-  const userSexChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === 'M' | 'F' | 'NB'){
-      setUserSex(sexStringToInt(e.target.value));
+  const userSexChange = (sex: string) => {
+    const newSexInt = parseInt(sex);
+    if (isSexInt(newSexInt)) {
+      setUserSex(newSexInt);
 
       if (props.editMade) {
         props.editMade();
-      }
-    };
+      }}
   };
 
-  const userBirthdayChange = (newBirthday: Date) => {
-    setUserBirthday(newBirthday);
-
-    if (props.editMade) {
-      props.editMade();
+   const userBirthdayChange = (newBirthday: Date) => {
+      setUserBirthday(newBirthday);
+  
+      if (props.editMade) {
+        props.editMade();
+      }
     }
-  }
 
   const validateForm = () => {
     let errorsFound = false;
@@ -100,11 +103,9 @@ const UserForm = forwardRef((props: IProps, ref) => {
     <>
       <div className={classes.userFields}>
         <TextField
-          // className={classes.userField}
           variant="outlined"
           error={firstNameError}
           onChange={props.editMade ? props.editMade : undefined}
-          // onChange={props.editMade}
           label="First Name"
           helperText={firstNameError ? 'Must contain only letters' : ''}
           defaultValue={props.user ? props.user.firstName : ''}
@@ -114,11 +115,9 @@ const UserForm = forwardRef((props: IProps, ref) => {
         />
 
         <TextField
-          // className={classes.userField}
           variant="outlined"
           error={lastNameError}
           onChange={props.editMade ? props.editMade : undefined}
-          // onChange={props.editMade}
           label="Last Name"
           helperText={lastNameError ? 'Must contain only letters' : ''}
           defaultValue={props.user ? props.user.lastName : ''}
@@ -127,11 +126,11 @@ const UserForm = forwardRef((props: IProps, ref) => {
           }}
         />
 
-        <FormControl /* className={classes.userField} */>
+        <FormControl>
           <TextField
             label="Sex"
             variant="outlined"
-            onChange={userSexChange}
+            onChange={(e) => userSexChange(e.target.value)}
             value={userSex}
             select
           >
@@ -143,7 +142,6 @@ const UserForm = forwardRef((props: IProps, ref) => {
 
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <BirthdayPicker
-            // className={classes.userField}
             userBirthday={userBirthday}
             userBirthdayChange={userBirthdayChange}
           />
