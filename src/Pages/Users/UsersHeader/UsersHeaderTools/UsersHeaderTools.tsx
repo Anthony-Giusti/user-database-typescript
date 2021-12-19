@@ -1,4 +1,4 @@
-//@ts-nocheck
+
 import React from 'react';
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -20,15 +20,18 @@ interface IProps {
 }
 
 const UsersHeaderTools: React.FC<IProps> = ({ handleSexFilter, sexFilter, userData }) => {
-  const handleChange = (e: React.FormEvent) => {
-    handleSexFilter(e.target.value);
+  const handleChange = (e: any) => {
+    const targetSex = e.target.value;
+    if (typeof targetSex === 'string') {
+      handleSexFilter(targetSex);
+    }
   };
 
   const handleGetAverage = () => {
-    const now = new Date();
+    const now = new Date().getTime();
 
     const birthdaysInDays = userData.map((user) => {
-      const diffTime = Math.abs(now - brithdayStringToDate(user.birthday));
+      const diffTime = Math.abs(now - brithdayStringToDate(user.birthday).getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       return diffDays;
