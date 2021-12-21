@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import SnackBar from '@material-ui/core/Snackbar';
 
 import 'date-fns';
 
@@ -50,8 +51,19 @@ const Users: React.FC<IProps> = ({
     property: '_id',
     order: 'ascending',
   });
+  const [isLoadingSnackBarOpen, setIsLoadingSnackbarOpen] =
+    useState<boolean>(false);
 
   const classes = useStyles();
+
+  const waitOnServer = (): void => {
+    setTimeout(() => {
+      if (isFetchingUserData) {
+        setIsLoadingSnackbarOpen(true);
+      }
+      }, 3000);
+  }
+  
 
   const openEditModal = (user: IUser): void => {
     setSelectedUser(user);
@@ -170,7 +182,17 @@ const Users: React.FC<IProps> = ({
 
   useEffect(() => {
     fetchUserData();
+
+    waitOnServer();
   }, []);
+
+  useEffect(() => {
+    if (!isFetchingUserData && userData.length > 1) {
+      setIsLoadingSnackbarOpen(false);
+    } else {
+      waitOnServer();
+    }
+  }, [isFetchingUserData]);
 
   useEffect(() => {
     handleSortUsers(currentSort.order, currentSort.property);
@@ -231,6 +253,12 @@ const Users: React.FC<IProps> = ({
           </DialogActions>
         </Dialog>
       )}
+
+      <SnackBar
+        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+        open={isLoadingSnackBarOpen}
+        message="Warming up heroku server after long period of inactivity..."
+      ></SnackBar>
     </div>
   );
 };
