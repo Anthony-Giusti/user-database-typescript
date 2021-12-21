@@ -61,9 +61,8 @@ const Users: React.FC<IProps> = ({
       if (isFetchingUserData) {
         setIsLoadingSnackbarOpen(true);
       }
-      }, 3000);
-  }
-  
+    }, 3000);
+  };
 
   const openEditModal = (user: IUser): void => {
     setSelectedUser(user);
@@ -255,7 +254,7 @@ const Users: React.FC<IProps> = ({
       )}
 
       <SnackBar
-        anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         open={isLoadingSnackBarOpen}
         message="Warming up heroku server after long period of inactivity..."
       ></SnackBar>
