@@ -22,7 +22,8 @@ const SortButton: React.FC<IProps> = ({
   toBeSorted,
   selectedSortBtn,
 }) => {
-  const [currentDirection, setCurrentDirection] = useState<listOrder>('descending');
+  const [currentDirection, setCurrentDirection] =
+    useState<listOrder>('descending');
   const classes = useStyles();
 
   const handleClick = (order: listOrder): void => {

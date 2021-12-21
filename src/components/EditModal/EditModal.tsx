@@ -30,7 +30,8 @@ const EditModal: React.FC<IProps> = ({
   selectedUser,
 }) => {
   const [isEdited, setIsEdited] = useState<boolean>(false);
-  const [editModalConfirmOpen, setEditModalConfirmOpen] = useState<boolean>(false);
+  const [editModalConfirmOpen, setEditModalConfirmOpen] =
+    useState<boolean>(false);
 
   const ref = useRef(document.createElement('form'));
 

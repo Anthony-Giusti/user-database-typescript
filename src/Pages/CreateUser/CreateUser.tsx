@@ -15,7 +15,7 @@ const CreateUser: React.FC<IProps> = ({ submitUser }) => {
   const classes = useStyles();
   const ref = useRef(document.createElement('form'));
 
-  const handleSubmit = (newUser: IUser):void => {
+  const handleSubmit = (newUser: IUser): void => {
     submitUser(newUser);
   };
 

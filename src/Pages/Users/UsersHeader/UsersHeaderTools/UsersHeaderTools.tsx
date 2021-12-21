@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import Checkbox from '@material-ui/core/Checkbox';
@@ -19,7 +18,11 @@ interface IProps {
   userData: IUser[];
 }
 
-const UsersHeaderTools: React.FC<IProps> = ({ handleSexFilter, sexFilter, userData }) => {
+const UsersHeaderTools: React.FC<IProps> = ({
+  handleSexFilter,
+  sexFilter,
+  userData,
+}) => {
   const handleChange = (e: any) => {
     const targetSex = e.target.value;
     if (typeof targetSex === 'string') {
@@ -31,7 +34,9 @@ const UsersHeaderTools: React.FC<IProps> = ({ handleSexFilter, sexFilter, userDa
     const now = new Date().getTime();
 
     const birthdaysInDays = userData.map((user) => {
-      const diffTime = Math.abs(now - brithdayStringToDate(user.birthday).getTime());
+      const diffTime = Math.abs(
+        now - brithdayStringToDate(user.birthday).getTime()
+      );
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
       return diffDays;

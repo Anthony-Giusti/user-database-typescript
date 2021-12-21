@@ -36,7 +36,7 @@ const Users: React.FC<IProps> = ({
   removeUser,
   submitEditedUser,
   fetchUserData,
-  isFetchingUserData
+  isFetchingUserData,
 }) => {
   const [selectedUser, setSelectedUser] = useState<IUser | null>(null);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
@@ -88,8 +88,6 @@ const Users: React.FC<IProps> = ({
 
     return filteredUsers;
   };
-
-
 
   const sortByBirthday = (order: listOrder): IUser[] => {
     const filteredUsers = [...userData];
@@ -180,29 +178,29 @@ const Users: React.FC<IProps> = ({
 
   return (
     <div className={classes.usersMain}>
-    {isFetchingUserData ?  
-      <Box sx={{ width: '100%' }}>
-        <LinearProgress />
-      </Box>
-      :
-      <>
-      <UsersHeader
-        handleSexFilter={handleSexFilter}
-        sortUsers={handleSortUsers}
-        userData={visibleUserData}
-        sexFilter={sexFilter}
-      />
-      
-      {visibleUserData.map((user) => (
-        <User
-          key={user._id}
-          user={user}
-          handleRemoveUser={confirmRemoveUser}
-          openEditModal={openEditModal}
-        />
-      ))}
-      </>
-}
+      {isFetchingUserData ? (
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+        </Box>
+      ) : (
+        <>
+          <UsersHeader
+            handleSexFilter={handleSexFilter}
+            sortUsers={handleSortUsers}
+            userData={visibleUserData}
+            sexFilter={sexFilter}
+          />
+
+          {visibleUserData.map((user) => (
+            <User
+              key={user._id}
+              user={user}
+              handleRemoveUser={confirmRemoveUser}
+              openEditModal={openEditModal}
+            />
+          ))}
+        </>
+      )}
       {selectedUser && editModalOpen && (
         <EditModal
           editModalOpen={editModalOpen}
