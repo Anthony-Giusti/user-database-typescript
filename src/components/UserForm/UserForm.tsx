@@ -23,7 +23,7 @@ interface IProps {
 }
 
 const sexInt = [1, 2, 3] as const;
-type sexInt = (typeof sexInt)[number];
+type sexInt = typeof sexInt[number];
 const isSexInt = (x: any): x is sexInt => sexInt.includes(x);
 
 const UserForm = forwardRef((props: IProps, ref) => {
@@ -48,16 +48,17 @@ const UserForm = forwardRef((props: IProps, ref) => {
 
       if (props.editMade) {
         props.editMade();
-      }}
-  };
-
-   const userBirthdayChange = (newBirthday: Date) => {
-      setUserBirthday(newBirthday);
-  
-      if (props.editMade) {
-        props.editMade();
       }
     }
+  };
+
+  const userBirthdayChange = (newBirthday: Date) => {
+    setUserBirthday(newBirthday);
+
+    if (props.editMade) {
+      props.editMade();
+    }
+  };
 
   const validateForm = () => {
     let errorsFound = false;
