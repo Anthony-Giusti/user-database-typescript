@@ -8,6 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 import 'date-fns';
 
@@ -58,10 +60,14 @@ const Users: React.FC<IProps> = ({
 
   const waitOnServer = (): void => {
     setTimeout(() => {
-      if (isFetchingUserData) {
+      if (isFetchingUserData && userData.length < 1) {
         setIsLoadingSnackbarOpen(true);
       }
-    }, 3000);
+    }, 2000);
+  };
+
+  const handleLoadingSnackBarClose = () => {
+    setIsLoadingSnackbarOpen(false);
   };
 
   const openEditModal = (user: IUser): void => {
@@ -181,12 +187,10 @@ const Users: React.FC<IProps> = ({
 
   useEffect(() => {
     fetchUserData();
-
-    waitOnServer();
   }, []);
 
   useEffect(() => {
-    if (!isFetchingUserData && userData.length > 1) {
+    if (!isFetchingUserData) {
       setIsLoadingSnackbarOpen(false);
     } else {
       waitOnServer();
@@ -255,9 +259,17 @@ const Users: React.FC<IProps> = ({
 
       <SnackBar
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        // onClose={() => setIsLoadingSnackbarOpen(false)}
         open={isLoadingSnackBarOpen}
         message="Warming up heroku server after long period of inactivity..."
-      ></SnackBar>
+        action={
+          <React.Fragment>
+            <IconButton onClick={handleLoadingSnackBarClose}>
+              <CloseIcon color="action" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </div>
   );
 };
