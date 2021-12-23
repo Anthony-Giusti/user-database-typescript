@@ -190,10 +190,10 @@ const Users: React.FC<IProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!isFetchingUserData) {
-      setIsLoadingSnackbarOpen(false);
-    } else {
+    if (isFetchingUserData) {
       waitOnServer();
+    } else {
+      setIsLoadingSnackbarOpen(false);
     }
   }, [isFetchingUserData]);
 
@@ -204,9 +204,23 @@ const Users: React.FC<IProps> = ({
   return (
     <div className={classes.usersMain}>
       {isFetchingUserData ? (
-        <Box sx={{ width: '100%' }}>
-          <LinearProgress />
-        </Box>
+        <>
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress />
+          </Box>
+          <SnackBar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            open={isLoadingSnackBarOpen}
+            message="Warming up heroku server after long period of inactivity..."
+            action={
+              <React.Fragment>
+                <IconButton onClick={handleLoadingSnackBarClose}>
+                  <CloseIcon color="action" />
+                </IconButton>
+              </React.Fragment>
+            }
+          />
+        </>
       ) : (
         <>
           <UsersHeader
@@ -256,20 +270,6 @@ const Users: React.FC<IProps> = ({
           </DialogActions>
         </Dialog>
       )}
-
-      <SnackBar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        // onClose={() => setIsLoadingSnackbarOpen(false)}
-        open={isLoadingSnackBarOpen}
-        message="Warming up heroku server after long period of inactivity..."
-        action={
-          <React.Fragment>
-            <IconButton onClick={handleLoadingSnackBarClose}>
-              <CloseIcon color="action" />
-            </IconButton>
-          </React.Fragment>
-        }
-      />
     </div>
   );
 };
