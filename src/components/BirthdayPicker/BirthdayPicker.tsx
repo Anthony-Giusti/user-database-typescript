@@ -11,8 +11,10 @@ const BirthdayPicker: React.FC<IProps> = ({
   userBirthday,
   userBirthdayChange,
 }) => {
-  const handleDateChange = (newBirthday: Date): void => {
-    userBirthdayChange(newBirthday);
+  const handleDateChange = (newBirthday: Date | null): void => {
+    if (newBirthday) {
+      userBirthdayChange(newBirthday);
+    }
   };
 
   return (
@@ -25,7 +27,7 @@ const BirthdayPicker: React.FC<IProps> = ({
         format="MM/dd/yyyy"
         maxDate={new Date()}
         value={userBirthday}
-        onChange={() => handleDateChange}
+        onChange={(newBirthday) => handleDateChange(newBirthday)}
         KeyboardButtonProps={{
           'aria-label': 'change date',
         }}
