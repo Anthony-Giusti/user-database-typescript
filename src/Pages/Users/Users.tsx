@@ -63,7 +63,7 @@ const Users: React.FC<IProps> = ({
       if (isFetchingUserData && userData.length < 1) {
         setIsLoadingSnackbarOpen(true);
       }
-    }, 2000);
+    }, 1500);
   };
 
   const handleLoadingSnackBarClose = () => {
@@ -209,13 +209,13 @@ const Users: React.FC<IProps> = ({
             <LinearProgress />
           </Box>
           <SnackBar
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             open={isLoadingSnackBarOpen}
             message="Warming up heroku server after long period of inactivity..."
             action={
               <React.Fragment>
                 <IconButton onClick={handleLoadingSnackBarClose}>
-                  <CloseIcon color="action" />
+                  <CloseIcon color="error" />
                 </IconButton>
               </React.Fragment>
             }
