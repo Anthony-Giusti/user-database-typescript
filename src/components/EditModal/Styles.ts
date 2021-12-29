@@ -30,4 +30,7 @@ export default makeStyles((theme) => ({
       width: '100%',
     },
   },
+  confirmClosingText: {
+    paddingLeft: 8,
+  }
 }));

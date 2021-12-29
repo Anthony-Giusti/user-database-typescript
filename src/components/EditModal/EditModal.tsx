@@ -139,7 +139,9 @@ const EditModal: React.FC<IProps> = ({
 
       <Dialog open={editModalConfirmOpen}>
         <DialogContent>
-          <Typography>Confirm edits before closing?</Typography>
+          <Typography className={classes.confirmClosingText}>
+            Confirm edits before closing?
+          </Typography>
           <DialogActions
             disableSpacing={!mdDevice}
             className={classes.confirmDialogBtnsContainer}
